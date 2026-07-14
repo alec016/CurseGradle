@@ -1,11 +1,11 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import com.google.gson.annotations.SerializedName
 import org.gradle.api.Project
 
 import javax.annotation.Nullable
 
-import static com.matthewprenger.cursegradle.Util.check
+import static es.degrassi.cursegradle.Util.check
 
 class CurseArtifact implements Serializable {
 
@@ -57,6 +57,9 @@ class CurseArtifact implements Serializable {
     @SerializedName("gameVersions")
     int[] gameVersions
 
+    @SerializedName("gameVersionNames")
+    String[] gameVersionNames
+
     /**
      * Internal use only
      */
@@ -81,8 +84,12 @@ class CurseArtifact implements Serializable {
         check(changelogType != null, "The changelogType was null for project $id")
         check(changelog != null, "The changelog was not set for project $id")
         check(releaseType != null, "The releaseType was not set for project $id")
+        check(gameVersionNames != null, "Game version names not configured for project $id")
         releaseType = Util.resolveString(releaseType)
         check(CurseGradlePlugin.VALID_RELEASE_TYPES.contains(releaseType), "Invalid release type ($releaseType) for project $id. Valid options are: $CurseGradlePlugin.VALID_RELEASE_TYPES")
+        Arrays.asList(gameVersionNames).forEach {
+            check(CurseGradlePlugin.VALID_GAME_VERSION_NAMES.contains(it), "Invalid GameVersionName ($it) for project $id. Valid options are $CurseGradlePlugin.VALID_GAME_VERSION_NAMES")
+        }
         curseRelations.each { it.validate(id) }
     }
 
@@ -108,6 +115,7 @@ class CurseArtifact implements Serializable {
                 ", displayName=" + displayName +
                 ", releaseType='" + releaseType + '\'' +
                 ", gameVersionStrings=" + gameVersionStrings +
+                ", gameVersionNames=" + Arrays.toString(gameVersionNames) +
                 '}'
     }
 }

@@ -1,8 +1,8 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import com.google.common.base.Strings
-import com.matthewprenger.cursegradle.jsonresponse.CurseError
-import com.matthewprenger.cursegradle.jsonresponse.UploadResponse
+import es.degrassi.cursegradle.jsonresponse.CurseError
+import es.degrassi.cursegradle.jsonresponse.UploadResponse
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.config.CookieSpecs
@@ -16,7 +16,9 @@ import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 
+@DisableCachingByDefault(because = "Uploads artifacts to CurseForge, caching is not meaningful")
 class CurseUploadTask extends DefaultTask {
 
     private static final Logger log = Logging.getLogger(CurseUploadTask)

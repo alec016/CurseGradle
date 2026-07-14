@@ -1,8 +1,8 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import javax.annotation.Nullable
 
-import static com.matthewprenger.cursegradle.Util.check
+import static es.degrassi.cursegradle.Util.check
 
 class CurseProject {
 
@@ -55,6 +55,8 @@ class CurseProject {
      */
     def apiKey
 
+    Set<Object> gameVersionNames = new HashSet<>()
+
     List<Object> gameVersionStrings = new ArrayList<>()
 
     @Nullable
@@ -100,6 +102,15 @@ class CurseProject {
     }
 
     /**
+     * Add a compatible environment (Client or Server)
+     *
+     * @param environment The environment
+     */
+    void addEnvironment(def environment) {
+        gameVersionNames.add(environment)
+    }
+
+    /**
      * Configure CurseForge relations. Currently the only relation types are project relations
      *
      * @param configureClosure The configuration closure
@@ -130,6 +141,7 @@ class CurseProject {
                     artifact.relations(it)
                 }
             }
+            artifact.gameVersionNames = gameVersionNames.toArray(String[]::new)
         }
 
         if (mainArtifact != null) {
@@ -148,6 +160,7 @@ class CurseProject {
                     mainArtifact.relations(it)
                 }
             }
+            mainArtifact.gameVersionNames = gameVersionNames.toArray(String[]::new)
         }
     }
 

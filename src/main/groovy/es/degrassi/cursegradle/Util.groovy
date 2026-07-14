@@ -1,9 +1,8 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import com.google.common.base.Charsets
-import com.google.common.io.Files
 import com.google.gson.Gson
-import com.matthewprenger.cursegradle.jsonresponse.CurseError
+import es.degrassi.cursegradle.jsonresponse.CurseError
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.config.CookieSpecs

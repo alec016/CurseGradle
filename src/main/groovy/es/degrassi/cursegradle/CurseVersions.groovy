@@ -1,8 +1,8 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import com.google.common.base.Throwables
-import com.matthewprenger.cursegradle.jsonresponse.VersionType
-import com.matthewprenger.cursegradle.jsonresponse.GameVersion
+import es.degrassi.cursegradle.jsonresponse.VersionType
+import es.degrassi.cursegradle.jsonresponse.GameVersion
 import gnu.trove.map.TObjectIntMap
 import gnu.trove.map.hash.TObjectIntHashMap
 import gnu.trove.set.TIntSet

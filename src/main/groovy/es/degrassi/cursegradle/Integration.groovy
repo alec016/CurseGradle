@@ -1,11 +1,9 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
-import org.gradle.api.plugins.JavaPluginConvention
 
 class Integration {
 
@@ -26,31 +24,6 @@ class Integration {
             }
         } catch (Throwable t) {
             log.warn("Failed Java integration", t)
-        }
-    }
-
-    static void checkJavaVersion(Project project, CurseProject curseProject) {
-
-        try {
-            JavaPluginConvention javaConv = (JavaPluginConvention) project.getConvention().getPlugins().get("java")
-            JavaVersion javaVersion = JavaVersion.toVersion(javaConv.targetCompatibility)
-
-            if (JavaVersion.VERSION_1_6.compareTo(javaVersion) >= 0) {
-                curseProject.addGameVersion('Java 6')
-            }
-            if (JavaVersion.VERSION_1_7.compareTo(javaVersion) >= 0) {
-                curseProject.addGameVersion('Java 7')
-            }
-            if (JavaVersion.VERSION_1_8.compareTo(javaVersion) >= 0) {
-                curseProject.addGameVersion('Java 8')
-            }
-            if (project.extensions.getByType(CurseExtension).curseGradleOptions.detectNewerJava) {
-                if (JavaVersion.VERSION_1_9.compareTo(javaVersion) >= 0) {
-                    curseProject.addGameVersion('Java 9')
-                }
-            }
-        } catch (Throwable t) {
-            log.warn("Failed to check Java Version", t)
         }
     }
 

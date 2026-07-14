@@ -1,4 +1,4 @@
-package com.matthewprenger.cursegradle
+package es.degrassi.cursegradle
 
 import com.google.common.base.Strings
 import org.gradle.api.DefaultTask
@@ -14,6 +14,7 @@ class CurseGradlePlugin implements Plugin<Project> {
     static final String EXTENSION_NAME = 'curseforge'
 
     static final Set<String> VALID_RELEASE_TYPES = ['alpha', 'beta', 'release']
+    static final Set<String> VALID_GAME_VERSION_NAMES = ['Client', 'Server']
     static final Set<String> VALID_RELATIONS = ['requiredDependency', 'embeddedLibrary', 'optionalDependency', 'tool', 'incompatible']
 
     static final String API_BASE_URL = 'https://minecraft.curseforge.com'
@@ -43,7 +44,7 @@ class CurseGradlePlugin implements Plugin<Project> {
 
                 Util.check(!Strings.isNullOrEmpty(curseProject.id), "A CurseForge project was configured without an id")
 
-                CurseUploadTask uploadTask = project.tasks.create("curseforge$curseProject.id", CurseUploadTask)
+                CurseUploadTask uploadTask = project.tasks.register("curseforge$curseProject.id", CurseUploadTask) as CurseUploadTask
                 curseProject.uploadTask = uploadTask
                 uploadTask.group = TASK_GROUP
                 uploadTask.description = "Uploads CurseForge project $curseProject.id"
