@@ -44,7 +44,7 @@ class CurseGradlePlugin implements Plugin<Project> {
 
                 Util.check(!Strings.isNullOrEmpty(curseProject.id), "A CurseForge project was configured without an id")
 
-                CurseUploadTask uploadTask = project.tasks.register("curseforge$curseProject.id", CurseUploadTask) as CurseUploadTask
+                CurseUploadTask uploadTask = project.tasks.maybeCreate("curseforge$curseProject.id", CurseUploadTask)
                 curseProject.uploadTask = uploadTask
                 uploadTask.group = TASK_GROUP
                 uploadTask.description = "Uploads CurseForge project $curseProject.id"
@@ -53,11 +53,6 @@ class CurseGradlePlugin implements Plugin<Project> {
                 uploadTask.projectId = curseProject.id
 
                 CurseExtension ext = project.extensions.getByType(CurseExtension)
-
-                if (ext.curseGradleOptions.javaVersionAutoDetect) {
-                    Integration.checkJavaVersion(project, curseProject)
-                }
-
                 if (ext.curseGradleOptions.javaIntegration) {
                     Integration.checkJava(project, curseProject)
                 }

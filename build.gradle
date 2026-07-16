@@ -3,7 +3,6 @@ plugins {
   id 'idea'
   id "java-gradle-plugin"
   id 'maven-publish'
-  id 'com.gradleup.shadow' version '9.5.1'
 }
 
 ext {
@@ -12,7 +11,7 @@ ext {
 }
 
 base {
-  version = '2.0.0'
+  version = '2.0.0-build-5'
   group = 'es.degrassi'
   description = 'Gradle plugin to upload artifacts to CurseForge'
   archivesName = 'CurseGradle'
@@ -45,33 +44,14 @@ jar {
   }
 }
 
-tasks.register('javadocJar', Jar) {
-  dependsOn javadoc
-  from javadoc.destinationDir
-  archiveClassifier.set('javadoc')
+tasks.withType(JavaCompile) {
+  options.encoding = "UTF-8"
+  options.release = 17
 }
 
-tasks.register('sourcesJar', Jar) {
-  from sourceSets.main.allSource
-  archiveClassifier.set('sources')
-}
-
-artifacts {
-  archives jar
-  archives javadocJar
-  archives sourcesJar
-}
-
-shadow {
-  addShadowJarToAssembleLifecycle = false
-}
-
-assemble.dependsOn javadocJar, sourcesJar
-
-[compileJava, compileGroovy].each {
-  it.options.encoding = 'UTF-8'
-  it.options.deprecation = true
-  it.options.fork = true
+java {
+  sourceCompatibility = targetCompatibility = '17'
+  withSourcesJar()
 }
 
 // Example configuration to allow publishing using the maven-publish plugin
