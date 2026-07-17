@@ -104,6 +104,11 @@ class CurseArtifact implements Serializable {
         if (displayName != null) {
             displayName = Util.resolveString(displayName)
         }
+        String[] gameVersionNames = new String[this.gameVersionNames.length]
+        for (def i = 0; i < gameVersionNames.length; i++) {
+            gameVersionNames[i] = Util.resolveString(this.gameVersionNames[i])
+        }
+        this.gameVersionNames = gameVersionNames
     }
 
     @Override

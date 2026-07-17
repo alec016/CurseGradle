@@ -11,7 +11,7 @@ ext {
 }
 
 base {
-  version = '2.0.0-build-5'
+  version = '2.0.0-build-6'
   group = 'es.degrassi'
   description = 'Gradle plugin to upload artifacts to CurseForge'
   archivesName = 'CurseGradle'
